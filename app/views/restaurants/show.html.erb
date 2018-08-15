@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="offset-md-3 col-md-6">
+      <h1><%= @restaurant.name %></h1>
+    </div>
+  </div>
+</div>
+
+
+<ul>
+  <li>Address: <%= @restaurant.address %></li>
+  <li>Phone: <%= @restaurant.phone_number %></li>
+  <li>Category: <%= @restaurant.category %></li>
+</ul>
+
+<h4>Reviews:</h4>
+
+<% if @restaurant.reviews.count == 0 %>
+  <p>"Be the first to give your review</p>
+<% else %>
+  <% @restaurant.reviews.each do |review| %>
+    <%= review.content %>
+    <%= review.rating %>
+  <% end %>
+<% end %>
+
+
+
+<%= simple_form_for [@restaurant, @review] do |f| %>
+
+  <%= f.input :rating %>
+  <%= f.input :content %>
+  <%= f.submit %>
+
+<% end %>
+
+<%= link_to "Go Back",restaurant_path(@restaurant) %>
